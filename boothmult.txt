@@ -40,7 +40,8 @@ begin
 process(mplr,mpcd)
 variable br,nbr :std_logic_vector(7 downto 0);--Here br stores the multiplier whereas nbr stores the 2's complement of multiplier
 variable acqr:std_logic_vector(15 downto 0);-- storing the 16 bit result
-variable qnl : std_logic;--qnl is used for storing the last previous bit of acqr.initially it is initialized to 0
+variable qnl : std_logic;
+--qnl is used for storing the last previous bit of acqr.initially it is initialized to 0
 begin
 
 acqr(15 downto 8):=(others=>'0');
