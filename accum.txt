@@ -1,0 +1,33 @@
+library ieee; 
+use ieee.std_logic_1164.all; 
+use ieee.std_logic_unsigned.all;
+entity accum is
+		  port(C, CLR : in  std_logic;
+        D : in std_logic_vector(7 downto 0); 
+		  E : in std_logic_vector(7 downto 0);
+        Q : out std_logic_vector(15 downto 0)); 
+end accum; 
+architecture archi of accum is 
+ 
+  signal tmp: std_logic_vector(15 downto 0) := (others => '0');
+  signal curr: std_logic_vector(15 downto 0) := (others => '0');
+  
+ Component boothmult is 
+ Port ( mpcd,mplr : in  STD_LOGIC_vector(7 downto 0);
+          
+           result : out  STD_LOGIC_vector(15 downto 0));
+	end component;
+begin 
+  	
+ b1 : boothmult port map ( E ,D , curr); 
+    process (C,curr,CLR) 
+      begin
+        		
+        if    (CLR='1') then	  
+          tmp <= "0000000000000000"; 
+        elsif ( C='1') then 
+         tmp <=curr+tmp;  
+       end if;
+    end process; 
+    Q<=tmp;
+end archi;
